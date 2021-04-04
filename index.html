@@ -9,11 +9,16 @@
 </head>
 <body>
     <h1>My MongoDB Database Recap</h1>
-    <p id="userName"></p>
+    <h1 id="userName"></h1>
+    <h2></h2>
     <script>
         fetch('http://localhost:545/users/3')
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            // document.getElementById('userName').innerHTML = data.name;
+            const getData = document.getElementById('userName');
+            getData.innerHTML = data.name;
+        })
     </script>
 </body>
 </html>
