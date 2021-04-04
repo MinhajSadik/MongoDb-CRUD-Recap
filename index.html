@@ -37,7 +37,7 @@
         addUser.addEventListener('click', () => {
             const name = document.getElementById('user').value;
             const user = { name }
-            fetch('/addUser/', {
+            fetch('http://localhost:545/addUser', {
                 method: 'POST',
                 body: JSON.stringify(user),
                 headers: {
@@ -47,7 +47,7 @@
             .then(res => res.json())
             .then(data => console.log('post done some times'))
         })
-
+        
     </script>
 </body>
 
