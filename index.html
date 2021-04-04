@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +8,47 @@
     <title>Recap</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
     <h1>My MongoDB Database Recap</h1>
     <h1 id="userName"></h1>
-    <h2></h2>
+
+    <div class="container">
+        <div class="row">
+            <input type="text" class="form-control" id="user">
+            <br>
+            <br>
+            <button class="btn btn-primary" id="addUser">**Add User**</button>
+        </div>
+    </div>
+
     <script>
-        // get
+        // get data to the sarver
         fetch('http://localhost:545/users/3')
-        .then(res => res.json())
-        .then(data => {
-            // document.getElementById('userName').innerHTML = data.name;
-            const getData = document.getElementById('userName');
-            getData.innerHTML = data.name;
+            .then(res => res.json())
+            .then(data => {
+                // document.getElementById('userName').innerHTML = data.name;
+                const getData = document.getElementById('userName');
+                getData.innerHTML = data.name;
+            })
+
+        // post data to the sarver
+        const addUser = document.getElementById('addUser');
+        addUser.addEventListener('click', () => {
+            const name = document.getElementById('user').value;
+            const user = { name }
+            fetch('/addUser/', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json())
+            .then(data => console.log('post done some times'))
         })
+
     </script>
 </body>
+
 </html>
