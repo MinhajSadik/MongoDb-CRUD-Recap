@@ -28,7 +28,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/addUser', (req, res) => {
-    console.log(req.body)
+    //save to database
+    // const user = req.body;
+    // user.id = 545;
+    res.send(req.body)
 })
 
 app.listen(545, console.log('port on 545'))

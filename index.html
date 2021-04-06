@@ -45,9 +45,12 @@
                 }
             })
             .then(res => res.json())
-            .then(data => console.log('post done some times'))
+            .then(data => updateUser(data));
         })
         
+        function updateUser(user){
+            document.getElementById('userName').innerHTML = user.name
+        }
     </script>
 </body>
 
