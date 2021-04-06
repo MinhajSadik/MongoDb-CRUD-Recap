@@ -10,8 +10,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (_req, res) => {
     res.sendFile(`${__dirname}/index.html`);
@@ -37,6 +37,13 @@ app.get('/', (_req, res) => {
 
 client.connect(err => {
     const collection = client.db("MongoDb-Recap").collection("Product's");
+    app.get('/products', (req, res) => {
+        collection.find({})
+            .toArray((err, documents) => {
+                res.send(documents);
+        })
+    })
+
     app.post('/addProduct', (req, res) => {
         const product = req.body;
         collection.insertOne(product)
@@ -45,6 +52,8 @@ client.connect(err => {
                 res.send('success')
         })
     })
+
+
 });
 
 app.listen(545, console.log('port on 545'))
