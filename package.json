@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "MongoDb-CRUD-Recap",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"

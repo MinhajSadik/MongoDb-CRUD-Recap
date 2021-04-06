@@ -1,6 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import MongoClient from 'mongodb';
+// import express from 'express';
+// import cors from 'cors';
+// import MongoClient from 'mongodb';
+
+const express = require('express');
+const cors = require('cors');
+const {MongoClient} = require('mongodb');
 
 const password = 'MongoDB1';
 
@@ -27,16 +31,16 @@ app.use(express.json())
 //     res.send(req.body)
 // })
 
-app.get('/', (req, res) => {
-    res.send("Thank You Guys For Coming>")
-})
+// app.get('/', (_req, res) => {
+//     res.send("Thank You Guys For Coming>")
+// })
 
 client.connect(err => {
-    const collection = client.db("MongoDb-Recap").collection("Project's");
-    app.get('/', (req, res) => {
-        collection.InsertOne({
-
-        })
+    const collection = client.db("MongoDb-Recap").collection("Product's");
+    const product = { name: "minhaj", price: "anika" }
+    collection.insertOne(product)
+        .then(result => {
+            console.log('one product add');
     })
 });
 
