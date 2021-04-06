@@ -1,9 +1,7 @@
-// import express from 'express';
-// import cors from 'cors';
-// import MongoClient from 'mongodb';
 const express = require('express');
 const cors = require('cors');
-const {MongoClient} = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
 
 const password = 'MongoDB1';
 
@@ -12,8 +10,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const app = express();
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (_req, res) => {
     res.sendFile(`${__dirname}/index.html`);
@@ -29,20 +27,23 @@ app.get('/', (_req, res) => {
 //     // res.send(req.query.name)
 // })
 
-app.post('/addUser', (req, res) => {
-    res.send(req.body)
-})
+// app.post('/addUser', (req, res) => {
+//     res.send(req.body)
+// })
 
 // app.get('/', (_req, res) => {
 //     res.send("Thank You Guys For Coming>")
 // })
 
 client.connect(err => {
-    const PdCollection = client.db("MongoDb-Recap").collection("Product's");
-    app.post('/addProduct', (_req, res) => {
+    const collection = client.db("MongoDb-Recap").collection("Product's");
+    app.post('/addProduct', (req, res) => {
         const product = req.body;
-        console.log(product)
-        console.log('product added')
+        collection.insertOne(product)
+            .then(result => {
+                console.log('data added success')
+                res.send('success')
+        })
     })
 });
 
